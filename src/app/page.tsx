@@ -47,9 +47,14 @@ export default function Home() {
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">
               <Facebook size={18} strokeWidth={1.5} />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">
-              <Instagram size={18} strokeWidth={1.5} />
-            </a>
+            <a 
+  href="https://www.instagram.com/horecadistribution_/" 
+  target="_blank" 
+  rel="noopener noreferrer"
+  className="hover:text-pink-500 transition-colors"
+>
+  Instagram
+</a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">
               <Linkedin size={18} strokeWidth={1.5} />
             </a>
