@@ -11,12 +11,16 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
+  const [mounted, setMounted] = useState(false) // Hydration-ის პრობლემის მოსაგვარებლად
   const langRef = useRef<HTMLDivElement>(null)
   
   const { lang, setLang: setCurrentLang } = useLanguage()
-  const currentLang = (lang || 'KA') as 'KA' | 'EN' | 'RU'
+  
+  // სანამ კლიენტზე არ ჩაიტვირთება (mounted), ვიყენებთ 'KA'-ს
+  const currentLang = (mounted ? (lang || 'KA') : 'KA') as 'KA' | 'EN' | 'RU'
 
   useEffect(() => {
+    setMounted(true) // კომპონენტი ჩაიტვირთა კლიენტზე
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
@@ -39,11 +43,14 @@ export default function Navbar() {
     RU: { products: "Продукты", partners: "Партнеры", about: "О нас", contact: "Контакт" }
   }
 
+  // ვიყენებთ safeLang-ს, რომ ერორი არ ამოაგდოს თუ ენა არ მოიძებნა
+  const safeLang = content[currentLang] ? currentLang : 'KA'
+
   const navLinks = [
-    { name: content[currentLang].products, href: "#products" },
-    { name: content[currentLang].partners, href: "#partners" },
-    { name: content[currentLang].about, href: "#about" },
-    { name: content[currentLang].contact, href: "#contact" },
+    { name: content[safeLang].products, href: "#products" },
+    { name: content[safeLang].partners, href: "#partners" },
+    { name: content[safeLang].about, href: "#about" },
+    { name: content[safeLang].contact, href: "#contact" },
   ]
 
   const languages = [
@@ -65,14 +72,14 @@ export default function Navbar() {
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* მარცხენა მენიუ - გაზრდილი ტექსტი */}
+        {/* მარცხენა მენიუ */}
         <div className="hidden md:flex flex-1 gap-10 lg:gap-14 justify-start items-center font-bold text-[13px] lg:text-[14px] tracking-[0.25em] uppercase whitespace-nowrap">
           <Link href="#products" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[currentLang].products}</span>
+            <span className="relative z-10">{content[safeLang].products}</span>
             <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
           </Link>
           <Link href="#partners" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[currentLang].partners}</span>
+            <span className="relative z-10">{content[safeLang].partners}</span>
             <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
           </Link>
         </div>
@@ -91,14 +98,14 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* მარჯვენა მენიუ - გაზრდილი ტექსტი */}
+        {/* მარჯვენა მენიუ */}
         <div className="hidden md:flex flex-1 gap-10 lg:gap-14 justify-end items-center font-bold text-[13px] lg:text-[14px] tracking-[0.25em] uppercase whitespace-nowrap">
           <Link href="#about" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[currentLang].about}</span>
+            <span className="relative z-10">{content[safeLang].about}</span>
             <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
           </Link>
           <Link href="#contact" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[currentLang].contact}</span>
+            <span className="relative z-10">{content[safeLang].contact}</span>
             <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
           </Link>
           
@@ -150,7 +157,6 @@ export default function Navbar() {
             exit={{ opacity: 0, x: "-100%" }}
             className="fixed inset-0 z-[55] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-10 md:hidden font-bold"
           >
-            {/* ნავიგაციის ლინკები */}
             <div className="flex flex-col items-center gap-8">
               {navLinks.map((link) => (
                 <Link 
@@ -173,7 +179,7 @@ export default function Navbar() {
                     key={l.code}
                     onClick={() => {
                       setCurrentLang(l.code as any);
-                      setIsOpen(false); // ენის არჩევისას მენიუ დაიხუროს
+                      setIsOpen(false);
                     }}
                     className={`text-[12px] font-black tracking-[0.15em] py-2 px-4 rounded-full border transition-all duration-300
                       ${currentLang === l.code 
@@ -186,7 +192,6 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* დახურვის ღილაკი (X) ზედა კუთხეში, რომ მენიუში ყოფნისასაც ჩანდეს */}
             <button 
               className="absolute top-10 left-6 text-white" 
               onClick={() => setIsOpen(false)}
