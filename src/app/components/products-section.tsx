@@ -27,7 +27,7 @@ export const productsData: any = {
     { id: 14, name: "ვაშლი სუპერი", price: "5₾", category: "ხილი", img: "/products/apple.png" },
     { id: 15, name: "ყურძენი (ტაიფუნი, ვანი, ერებუნი, თითა)", price: "6.5₾", category: "ხილი", img: "/products/grapes.jpg" },
     { id: 16, name: "მსხალი სუპერი", price: "13₾", category: "ხილი", img: "/products/pear.jpg" },
-    { id: 17, name: "ხურმა", price: "4.5₾", category: "ხილი", img: "/products/persimmon karalyok.jpg" },
+    { id: 17, name: "ხურმა", price: "4.5₾", category: "ხილი", img: "/products/persimmonkaralyok.jpg" },
     { id: 18, name: "კივი", price: "8₾", category: "ხილი", img: "/products/kiwi.jpg" },
     { id: 19, name: "კარტოფილი", price: "1.5₾", category: "ბოსტნეული", img: "/products/potatoes.jpg" },
     { id: 20, name: "ბატატი", price: "10₾", category: "ბოსტნეული", img: "/products/sweetpotato.jpg" },
