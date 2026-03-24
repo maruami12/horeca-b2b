@@ -1,11 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
-    // ეს ეუბნება Vercel-ს, რომ პატარა შეცდომებზე თვალი დახუჭოს და მაინც ჩართოს საიტი
     ignoreBuildErrors: true,
   },
   eslint: {
-    // ესეც მსგავსია, ოღონდ კოდის სტილის შემოწმებას გამოტოვებს აწყობისას
     ignoreDuringBuilds: true,
   },
   images: {
@@ -13,19 +11,31 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.pexels.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: '*.googleusercontent.com',
-        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.gstatic.com', // გუგლის სტატიკური სურათებისთვის
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.pinimg.com', // Pinterest-ისთვის
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.pinterest.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.google.com',
         pathname: '/**',
       },
     ],
