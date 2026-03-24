@@ -148,13 +148,51 @@ export default function Navbar() {
             initial={{ opacity: 0, x: "-100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "-100%" }}
-            className="fixed inset-0 z-[55] bg-black flex flex-col items-center justify-center gap-8 md:hidden font-bold"
+            className="fixed inset-0 z-[55] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-10 md:hidden font-bold"
           >
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="text-white text-2xl tracking-[0.2em] uppercase">
-                {link.name}
-              </Link>
-            ))}
+            {/* ნავიგაციის ლინკები */}
+            <div className="flex flex-col items-center gap-8">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.href} 
+                  href={link.href} 
+                  onClick={() => setIsOpen(false)} 
+                  className="text-white text-2xl tracking-[0.2em] uppercase hover:text-[#C8A75E] transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* ენების გადამრთველი მობილურისთვის */}
+            <div className="mt-10 pt-10 border-t border-white/10 w-64 flex flex-col items-center gap-6">
+              <span className="text-white/30 text-[10px] tracking-[0.3em] uppercase">Select Language</span>
+              <div className="flex gap-6">
+                {languages.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => {
+                      setCurrentLang(l.code as any);
+                      setIsOpen(false); // ენის არჩევისას მენიუ დაიხუროს
+                    }}
+                    className={`text-[12px] font-black tracking-[0.15em] py-2 px-4 rounded-full border transition-all duration-300
+                      ${currentLang === l.code 
+                        ? 'border-[#C8A75E] text-[#C8A75E] bg-[#C8A75E]/5' 
+                        : 'border-white/10 text-white/40'}`}
+                  >
+                    {l.code}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* დახურვის ღილაკი (X) ზედა კუთხეში, რომ მენიუში ყოფნისასაც ჩანდეს */}
+            <button 
+              className="absolute top-10 left-6 text-white" 
+              onClick={() => setIsOpen(false)}
+            >
+              <X size={32} />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
