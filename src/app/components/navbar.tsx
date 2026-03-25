@@ -3,7 +3,15 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { 
+  Menu, 
+  X, 
+  ChevronDown, 
+  CookingPot, 
+  Handshake, 
+  Info, 
+  Phone 
+} from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "../LanguageContext"
 
@@ -45,10 +53,10 @@ export default function Navbar() {
   const safeLang = content[currentLang] ? currentLang : 'KA'
 
   const navLinks = [
-    { name: content[safeLang].products, href: "#products" },
-    { name: content[safeLang].partners, href: "#partners" },
-    { name: content[safeLang].about, href: "#about" },
-    { name: content[safeLang].contact, href: "#contact" },
+    { name: content[safeLang].products, href: "#products", icon: CookingPot },
+    { name: content[safeLang].partners, href: "#partners", icon: Handshake },
+    { name: content[safeLang].about, href: "#about", icon: Info },
+    { name: content[safeLang].contact, href: "#contact", icon: Phone },
   ]
 
   const languages = [
@@ -62,15 +70,19 @@ export default function Navbar() {
       <nav 
         className={`fixed top-0 left-0 w-full z-[60] px-6 md:px-12 lg:px-20 flex items-center justify-between transition-all duration-500 text-white ${
           isScrolled 
-            ? "bg-black/40 backdrop-blur-lg py-4 shadow-xl border-b border-white/5" 
+            ? "bg-black/40 backdrop-blur-lg py-4 shadow-xl" 
             : "bg-transparent py-10 md:py-14"
         }`}
       >
-        <button className="md:hidden p-2 text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* Burger Menu Button - მარცხნივ მობილურზე */}
+        <button 
+          className="md:hidden p-2 -ml-2 text-white order-first" 
+          onClick={() => setIsOpen(true)}
+        >
+          <Menu size={28} />
         </button>
 
-        {/* მარცხენა მენიუ */}
+        {/* Desktop Menu Left */}
         <div className="hidden md:flex flex-1 gap-10 lg:gap-14 justify-start items-center font-bold text-[13px] lg:text-[14px] tracking-[0.25em] uppercase whitespace-nowrap">
           <Link href="#products" className="group relative py-2.5 px-7">
             <span className="relative z-10">{content[safeLang].products}</span>
@@ -82,13 +94,13 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* ლოგო */}
-        <div className="flex-none px-4 md:px-8 lg:px-16">
+        {/* Logo - დესკტოპზე ცენტრში, მობილურზე მარჯვნივ */}
+        <div className="flex-none order-last md:order-none md:absolute md:left-1/2 md:-translate-x-1/2">
           <Link href="/">
             <Image 
               src="/logo-white.png" 
               alt="HORECA Distribution" 
-              width={isScrolled ? 160 : 250} 
+              width={isScrolled ? 120 : 160} 
               height={70} 
               className="object-contain transition-all duration-500"
               priority
@@ -96,7 +108,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* მარჯვენა მენიუ */}
+        {/* Desktop Menu Right */}
         <div className="hidden md:flex flex-1 gap-10 lg:gap-14 justify-end items-center font-bold text-[13px] lg:text-[14px] tracking-[0.25em] uppercase whitespace-nowrap">
           <Link href="#about" className="group relative py-2.5 px-7">
             <span className="relative z-10">{content[safeLang].about}</span>
@@ -145,56 +157,74 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Sidebar Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "-100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "-100%" }}
-            className="fixed inset-0 z-[55] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-10 md:hidden font-bold"
-          >
-            <div className="flex flex-col items-center gap-8">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.href} 
-                  href={link.href} 
-                  onClick={() => setIsOpen(false)} 
-                  className="text-white text-2xl tracking-[0.2em] uppercase hover:text-[#C8A75E] transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 z-[65] bg-black/60 backdrop-blur-sm md:hidden"
+            />
+            
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 left-0 bottom-0 w-[280px] z-[70] bg-[#0A0A0A] border-r border-white/10 p-8 flex flex-col md:hidden shadow-2xl"
+            >
+              <div className="flex justify-between items-center mb-16">
+                <Image src="/logo-white.png" alt="Logo" width={110} height={40} className="object-contain" />
+                <button onClick={() => setIsOpen(false)} className="text-white/60">
+                  <X size={24} />
+                </button>
+              </div>
 
-            <div className="mt-10 pt-10 border-t border-white/10 w-64 flex flex-col items-center gap-6">
-              <span className="text-white/30 text-[10px] tracking-[0.3em] uppercase">Select Language</span>
-              <div className="flex gap-6">
-                {languages.map((l) => (
-                  <button
-                    key={l.code}
-                    onClick={() => {
-                      setCurrentLang(l.code as any);
-                      setIsOpen(false);
-                    }}
-                    className={`text-[12px] font-black tracking-[0.15em] py-2 px-4 rounded-full border transition-all duration-300
-                      ${currentLang === l.code 
-                        ? 'border-[#C8A75E] text-[#C8A75E] bg-[#C8A75E]/5' 
-                        : 'border-white/10 text-white/40'}`}
+              <div className="flex flex-col gap-8">
+                {navLinks.map((link, idx) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.1 }}
                   >
-                    {l.code}
-                  </button>
+                    <Link 
+                      href={link.href} 
+                      onClick={() => setIsOpen(false)} 
+                      className="text-white text-lg tracking-[0.15em] uppercase font-bold hover:text-[#C8A75E] transition-all flex items-center gap-4"
+                    >
+                      <link.icon size={22} className="text-[#C8A75E]/80" />
+                      {link.name}
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
-            </div>
 
-            <button 
-              className="absolute top-10 left-6 text-white" 
-              onClick={() => setIsOpen(false)}
-            >
-              <X size={32} />
-            </button>
-          </motion.div>
+              <div className="mt-auto pt-10 border-t border-white/10">
+                <span className="text-white/30 text-[10px] tracking-[0.3em] uppercase block mb-6 text-center">Select Language</span>
+                <div className="flex justify-center gap-3">
+                  {languages.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => {
+                        setCurrentLang(l.code as any);
+                        setIsOpen(false);
+                      }}
+                      className={`text-[11px] font-black tracking-[0.15em] py-2 px-4 rounded-lg border transition-all duration-300
+                        ${currentLang === l.code 
+                          ? 'border-[#C8A75E] text-[#C8A75E] bg-[#C8A75E]/10' 
+                          : 'border-white/10 text-white/40'}`}
+                    >
+                      {l.code}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
