@@ -11,16 +11,15 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
-  const [mounted, setMounted] = useState(false) // Hydration-ის პრობლემის მოსაგვარებლად
+  const [mounted, setMounted] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
   
   const { lang, setLang: setCurrentLang } = useLanguage()
   
-  // სანამ კლიენტზე არ ჩაიტვირთება (mounted), ვიყენებთ 'KA'-ს
   const currentLang = (mounted ? (lang || 'KA') : 'KA') as 'KA' | 'EN' | 'RU'
 
   useEffect(() => {
-    setMounted(true) // კომპონენტი ჩაიტვირთა კლიენტზე
+    setMounted(true)
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
@@ -43,7 +42,6 @@ export default function Navbar() {
     RU: { products: "Продукты", partners: "Партнеры", about: "О нас", contact: "Контакт" }
   }
 
-  // ვიყენებთ safeLang-ს, რომ ერორი არ ამოაგდოს თუ ენა არ მოიძებნა
   const safeLang = content[currentLang] ? currentLang : 'KA'
 
   const navLinks = [
@@ -64,7 +62,7 @@ export default function Navbar() {
       <nav 
         className={`fixed top-0 left-0 w-full z-[60] px-6 md:px-12 lg:px-20 flex items-center justify-between transition-all duration-500 text-white ${
           isScrolled 
-            ? "bg-black/90 backdrop-blur-md py-4 shadow-2xl" 
+            ? "bg-black/40 backdrop-blur-lg py-4 shadow-xl border-b border-white/5" 
             : "bg-transparent py-10 md:py-14"
         }`}
       >
@@ -109,7 +107,6 @@ export default function Navbar() {
             <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
           </Link>
           
-          {/* ენების Dropdown */}
           <div className="relative ml-6 pl-8 border-l border-white/10" ref={langRef}>
             <button 
               onClick={() => setIsLangOpen(!isLangOpen)}
@@ -170,7 +167,6 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* ენების გადამრთველი მობილურისთვის */}
             <div className="mt-10 pt-10 border-t border-white/10 w-64 flex flex-col items-center gap-6">
               <span className="text-white/30 text-[10px] tracking-[0.3em] uppercase">Select Language</span>
               <div className="flex gap-6">

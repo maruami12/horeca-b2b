@@ -22,15 +22,18 @@ export default function Home() {
             src="/hero-bg.png" 
             alt="Hero Background"
             fill
-            className="object-cover filter brightness-[1.15] contrast-[1.1] opacity-60"
+            /* აქ მოვუმატეთ brightness და opacity მკვეთრი ფერებისთვის */
+            className="object-cover filter brightness-[1.3] contrast-[1.15] opacity-90"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-transparent h-1/3"></div>
-          <div className="absolute inset-0 bg-black/20"></div>
+          {/* ზედა გრადიენტი - მხოლოდ ნავბარისთვის */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-transparent h-1/3"></div>
+          
+          {/* ქვედა გრადიენტი - რბილი გადასვლა შემდეგ სექციაზე */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
         </div>
 
-        {/* მარჯვენა სოციალური ზოლი - ჩანს მხოლოდ Hero სექციაში */}
+        {/* მარჯვენა სოციალური ზოლი */}
         <div className="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center gap-10">
           <div className="w-[1px] h-32 bg-gradient-to-b from-transparent via-white/40 to-white/60"></div>
           
@@ -48,13 +51,13 @@ export default function Home() {
               <Facebook size={18} strokeWidth={1.5} />
             </a>
             <a 
-  href="https://www.instagram.com/horecadistribution_/" 
-  target="_blank" 
-  rel="noopener noreferrer" 
-  className="hover:text-white transition-colors duration-300"
->
-  <Instagram size={18} strokeWidth={1.5} />
-</a>
+              href="https://www.instagram.com/horecadistribution_/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-white transition-colors duration-300"
+            >
+              <Instagram size={18} strokeWidth={1.5} />
+            </a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">
               <Linkedin size={18} strokeWidth={1.5} />
             </a>
@@ -70,19 +73,11 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 2. ABOUT SECTION */}
       <AboutSection /> 
-
-      {/* 3. PARTNERS SECTION */}
       <PartnersSection /> 
-
-      {/* 4. PRODUCTS SECTION */}
       <ProductsSection /> 
+      <StatsSection /> 
 
-     {/* 5. STATS SECTION */}
-     <StatsSection /> 
-
-      {/* 6. FOOTER - დავამატეთ id="contact" */}
       <div id="contact">
         <Footer /> 
       </div>
