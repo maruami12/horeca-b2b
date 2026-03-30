@@ -1,8 +1,7 @@
 import './globals.css'
 import { LanguageProvider } from './LanguageContext'
-import type { Metadata } from 'next' // ეს დავამატეთ
+import type { Metadata } from 'next'
 
-// გუგლისთვის საჭირო ინფორმაცია (SEO)
 export const metadata: Metadata = {
   title: "HORECA Distribution | ხილისა და ბოსტნეულის საბითუმო მიწოდება",
   description: "უმაღლესი ხარისხის ხილი, ბოსტნეული, ჩირი და კენკრა რესტორნების, სასტუმროებისა და კაფეებისთვის. სწრაფი მიწოდება თბილისში.",
@@ -24,12 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ka">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@100..900&display=swap" rel="stylesheet" />
-      </head>
-      <body className="antialiased bg-[#0a0a0a] text-white" style={{ fontFamily: "'Noto Sans Georgian', sans-serif" }}>
+      <body className="antialiased bg-[#0a0a0a] text-white" style={{ fontFamily: "'BPGNino', sans-serif" }}>
         <LanguageProvider>
           {children}
         </LanguageProvider>

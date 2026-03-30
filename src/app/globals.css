@@ -3,15 +3,29 @@
 
 @import "tailwindcss";
 
-/* აიძულე ყველა ელემენტი გამოიყენოს ეს ფონტი */
-* {
-  font-family: 'Noto Sans Georgian', sans-serif !important;
+@font-face {
+  font-family: 'BPGNino';
+  src: url('/fonts/bpg_nino_mtavruli_normal.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, a, button {
-  font-family: 'Noto Sans Georgian', sans-serif !important;
+@font-face {
+  font-family: 'BPGNino';
+  src: url('/fonts/NotoSansGeorgian-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
+*, *::before, *::after {
+  font-family: 'BPGNino', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, a, button, div, nav, li, ul {
+  font-family: 'BPGNino', sans-serif !important;
+}
 
 :root {
   --background: oklch(1 0 0);

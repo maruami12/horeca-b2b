@@ -18,14 +18,25 @@ export default function Home() {
       {/* 1. HERO SECTION */}
       <section className="relative h-screen w-full flex items-center justify-center">
         <div className="absolute inset-0 z-0">
+
+          {/* Desktop ფონი */}
           <Image
             src="/hero-bg.png" 
             alt="Hero Background"
             fill
-            /* აქ მოვუმატეთ brightness და opacity მკვეთრი ფერებისთვის */
-            className="object-cover filter brightness-[1.0] contrast-[0.95] opacity-100"
+            className="object-cover brightness-[1.0] contrast-[0.95] hidden md:block"
             priority
           />
+
+          {/* მობილური ფონი */}
+          <Image
+            src="/mobilephoto.jpg" 
+            alt="Hero Background Mobile"
+            fill
+            className="object-cover brightness-[1.0] contrast-[0.95] block md:hidden"
+            priority
+          />
+
           {/* ზედა გრადიენტი - მხოლოდ ნავბარისთვის */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-transparent h-1/3"></div>
           

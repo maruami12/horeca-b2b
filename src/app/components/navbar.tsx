@@ -10,7 +10,8 @@ import {
   CookingPot, 
   Handshake, 
   Info, 
-  Phone 
+  Phone,
+  ShoppingBag 
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLanguage } from "../LanguageContext"
@@ -23,13 +24,12 @@ export default function Navbar() {
   const langRef = useRef<HTMLDivElement>(null)
   
   const { lang, setLang: setCurrentLang } = useLanguage()
-  
   const currentLang = (mounted ? (lang || 'KA') : 'KA') as 'KA' | 'EN' | 'RU'
 
   useEffect(() => {
     setMounted(true)
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 15)
     }
     const handleClickOutside = (event: MouseEvent) => {
       if (langRef.current && !langRef.current.contains(event.target as Node)) {
@@ -45,7 +45,7 @@ export default function Navbar() {
   }, [])
 
   const content: any = {
-    KA: { products: "პროდუქტები", partners: "პარტნიორები", about: "ჩვენს შესახებ", contact: "საკონტაქტო" },
+    KA: { products: "პროდუქტები", partners: "პარტნიორები", about: "ჩვენს შესახებ", contact: "კონტაქტი" },
     EN: { products: "Products", partners: "Partners", about: "About Us", contact: "Contact" },
     RU: { products: "Продукты", partners: "Партнеры", about: "О нас", contact: "Контакт" }
   }
@@ -68,64 +68,84 @@ export default function Navbar() {
   return (
     <>
       <nav 
-        className={`fixed top-0 left-0 w-full z-[60] px-6 md:px-12 lg:px-20 flex items-center justify-between transition-all duration-500 text-white ${
+        className={`fixed top-0 left-0 w-full z-[60] px-6 md:px-12 lg:px-20 flex items-center justify-between transition-all duration-500 text-white outline-none ${
           isScrolled 
-            ? "bg-black/40 backdrop-blur-lg py-4 shadow-xl" 
-            : "bg-transparent py-10 md:py-14"
+            ? "bg-black/10 backdrop-blur-md py-2 shadow-md translate-y-0" 
+            : "bg-transparent py-6 lg:py-8" // აქ შემცირდა დაშორება ზედა კიდიდან
         }`}
       >
-        {/* Burger Menu Button - მარცხნივ მობილურზე */}
+        {/* MOBILE & TABLET BURGER (Left) */}
         <button 
-          className="md:hidden p-2 -ml-2 text-white order-first" 
+          className="lg:hidden p-2 text-white active:scale-90 transition-all focus:outline-none outline-none" 
           onClick={() => setIsOpen(true)}
         >
-          <Menu size={28} />
+          <Menu size={isScrolled ? 28 : 44} />
         </button>
 
-        {/* Desktop Menu Left */}
-        <div className="hidden md:flex flex-1 gap-10 lg:gap-14 justify-start items-center font-bold text-[13px] lg:text-[14px] tracking-[0.25em] uppercase whitespace-nowrap">
-          <Link href="#products" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[safeLang].products}</span>
-            <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
+        {/* DESKTOP ONLY SECTION (Links + Cart) */}
+        <div className="hidden lg:flex flex-1 gap-4 justify-start items-center font-medium text-[20px] tracking-[0.1em] uppercase whitespace-nowrap pl-16">
+          <button className="mr-6 p-2 text-white hover:text-[#C8A75E] active:scale-90 transition-all focus:outline-none outline-none">
+            <ShoppingBag size={isScrolled ? 26 : 34} />
+          </button>
+
+          <Link href="#products" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
+            <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
+              {content[safeLang].products}
+            </span>
           </Link>
-          <Link href="#partners" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[safeLang].partners}</span>
-            <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
+          <Link href="#partners" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
+            <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
+              {content[safeLang].partners}
+            </span>
           </Link>
         </div>
-
-        {/* Logo - დესკტოპზე ცენტრში, მობილურზე მარჯვნივ */}
-        <div className="flex-none order-last md:order-none md:absolute md:left-1/2 md:-translate-x-1/2">
-          <Link href="/">
+        
+        {/* LOGO SECTION (Center) */}
+        <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:left-auto lg:translate-x-0 lg:flex-none transition-all duration-500">
+          <Link href="/" className="block focus:outline-none outline-none">
             <Image 
               src="/logo-white.png" 
               alt="HORECA Distribution" 
-              width={isScrolled ? 120 : 160} 
-              height={70} 
-              className="object-contain transition-all duration-500"
+              width={380} 
+              height={140} 
+              className={`object-contain transition-all duration-500 hover:scale-105 active:scale-95 ${
+                isScrolled 
+                  ? 'w-[100px] lg:w-[160px]' 
+                  : 'w-[180px] md:w-[220px] lg:w-[280px]'
+              }`}
               priority
             />
           </Link>
         </div>
 
-        {/* Desktop Menu Right */}
-        <div className="hidden md:flex flex-1 gap-10 lg:gap-14 justify-end items-center font-bold text-[13px] lg:text-[14px] tracking-[0.25em] uppercase whitespace-nowrap">
-          <Link href="#about" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[safeLang].about}</span>
-            <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
-          </Link>
-          <Link href="#contact" className="group relative py-2.5 px-7">
-            <span className="relative z-10">{content[safeLang].contact}</span>
-            <div className="absolute inset-0 border border-white/40 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-500 scale-95 group-hover:scale-100 pointer-events-none"></div>
-          </Link>
+        {/* RIGHT SECTION: Desktop Links + Language | Mobile/Tablet Cart */}
+        <div className="flex flex-1 items-center justify-end">
+          <div className="hidden lg:flex gap-4 items-center font-medium text-[20px] tracking-[0.1em] uppercase whitespace-nowrap mr-6">
+            <Link href="#about" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
+              <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
+                {content[safeLang].about}
+              </span>
+            </Link>
+            <Link href="#contact" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
+              <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
+                {content[safeLang].contact}
+              </span>
+            </Link>
+          </div>
+
+          <button className="lg:hidden p-2 text-white active:scale-90 transition-all focus:outline-none outline-none">
+            <ShoppingBag size={isScrolled ? 28 : 42} /> 
+          </button>
           
-          <div className="relative ml-6 pl-8 border-l border-white/10" ref={langRef}>
+          <div className="hidden lg:block relative ml-6 pl-8 border-l border-white/10" ref={langRef}>
             <button 
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className="group flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/5 bg-white/5 hover:bg-white/10 transition-all duration-300"
+              className={`group flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all focus:outline-none outline-none ${isScrolled ? "px-4 py-2" : "px-6 py-3"}`}
             >
-              <span className="text-[11px] font-black tracking-[0.15em]">{currentLang}</span>
-              <ChevronDown size={12} className={`opacity-40 transition-transform duration-500 ${isLangOpen ? 'rotate-180' : ''}`} />
+              <span className={`font-black tracking-widest transition-all ${isScrolled ? "text-[11px]" : "text-[13px]"}`}>
+                {currentLang}
+              </span>
+              <ChevronDown size={isScrolled ? 14 : 16} className={`opacity-50 transition-transform duration-500 ${isLangOpen ? 'rotate-180' : ''}`} />
             </button>
 
             <AnimatePresence>
@@ -134,7 +154,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 15, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  className="absolute right-0 mt-4 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-xl py-3 min-w-[150px] shadow-2xl overflow-hidden"
+                  className="absolute right-0 mt-4 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl py-3 min-w-[170px] shadow-2xl overflow-hidden"
                 >
                   {languages.map((l) => (
                     <button 
@@ -143,11 +163,10 @@ export default function Navbar() {
                         setCurrentLang(l.code as any);
                         setIsLangOpen(false);
                       }}
-                      className={`w-full flex items-center justify-between px-6 py-3 text-[10px] font-black tracking-[0.15em] transition-all duration-300
-                        ${currentLang === l.code ? 'text-[#C8A75E] bg-white/5' : 'text-white/40 hover:text-white hover:bg-white/10'}`}
+                      className="w-full flex items-center justify-between px-6 py-4 text-[11px] font-bold tracking-widest transition-all duration-300 focus:outline-none outline-none text-white/40 hover:text-white hover:bg-white/10"
                     >
                       {l.label}
-                      {currentLang === l.code && <div className="w-1 h-1 rounded-full bg-[#C8A75E]" />}
+                      {currentLang === l.code && <div className="w-1.5 h-1.5 rounded-full bg-[#C8A75E]" />}
                     </button>
                   ))}
                 </motion.div>
@@ -157,7 +176,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Sidebar Menu */}
+      {/* MOBILE & TABLET SIDEBAR */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -166,7 +185,7 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[65] bg-black/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-[65] bg-black/80 backdrop-blur-md lg:hidden"
             />
             
             <motion.div
@@ -174,37 +193,37 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 left-0 bottom-0 w-[280px] z-[70] bg-[#0A0A0A] border-r border-white/10 p-8 flex flex-col md:hidden shadow-2xl"
+              className="fixed top-0 left-0 bottom-0 w-[280px] z-[70] bg-[#0A0A0A] border-r border-white/10 p-8 flex flex-col lg:hidden shadow-2xl"
             >
-              <div className="flex justify-between items-center mb-16">
-                <Image src="/logo-white.png" alt="Logo" width={110} height={40} className="object-contain" />
-                <button onClick={() => setIsOpen(false)} className="text-white/60">
-                  <X size={24} />
+              <div className="flex justify-between items-center mb-12">
+                <Image src="/logo-white.png" alt="Logo" width={120} height={50} className="object-contain" />
+                <button onClick={() => setIsOpen(false)} className="text-white/40 hover:text-white transition-colors focus:outline-none outline-none">
+                  <X size={28} />
                 </button>
               </div>
 
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-6">
                 {navLinks.map((link, idx) => (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.1 }}
+                    transition={{ delay: idx * 0.05 }}
                   >
                     <Link 
                       href={link.href} 
                       onClick={() => setIsOpen(false)} 
-                      className="text-white text-lg tracking-[0.15em] uppercase font-bold hover:text-[#C8A75E] transition-all flex items-center gap-4"
+                      className="text-white text-base tracking-[0.1em] uppercase font-medium hover:text-[#C8A75E] transition-all flex items-center gap-4 focus:outline-none outline-none"
                     >
-                      <link.icon size={22} className="text-[#C8A75E]/80" />
+                      <link.icon size={20} className="text-[#C8A75E]/80" />
                       {link.name}
                     </Link>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="mt-auto pt-10 border-t border-white/10">
-                <span className="text-white/30 text-[10px] tracking-[0.3em] uppercase block mb-6 text-center">Select Language</span>
+              <div className="mt-auto pt-8 border-t border-white/10">
+                <span className="text-white/30 text-[9px] tracking-[0.2em] uppercase block mb-6 text-center font-bold">Select Language</span>
                 <div className="flex justify-center gap-3">
                   {languages.map((l) => (
                     <button
@@ -213,7 +232,7 @@ export default function Navbar() {
                         setCurrentLang(l.code as any);
                         setIsOpen(false);
                       }}
-                      className={`text-[11px] font-black tracking-[0.15em] py-2 px-4 rounded-lg border transition-all duration-300
+                      className={`text-[10px] font-black tracking-widest py-2 px-4 rounded-lg border transition-all duration-300 focus:outline-none outline-none
                         ${currentLang === l.code 
                           ? 'border-[#C8A75E] text-[#C8A75E] bg-[#C8A75E]/10' 
                           : 'border-white/10 text-white/40'}`}
