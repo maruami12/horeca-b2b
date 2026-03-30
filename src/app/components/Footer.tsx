@@ -107,7 +107,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="tel:+995123456789" className="hover:text-[#b8a26a]">
-                  +995 123 45 67 89
+                +995 599 78 16 78
                 </a>
               </li>
             </ul>
