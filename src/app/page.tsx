@@ -44,34 +44,36 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
         </div>
 
-      {/* მარჯვენა სოციალური ზოლი */}
-      <div className="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center">
-          <div className="w-[1px] h-48 bg-gradient-to-b from-transparent via-[#b89e5d]/50 to-[#b89e5d]"></div>
-          
-          <div className="py-6">
-            <span 
-              className="text-[11px] font-black tracking-[0.6em] text-white/70 uppercase whitespace-nowrap drop-shadow-lg"
-              style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
-            >
-              © HORECA DISTRIBUTION
-            </span>
-          </div>
+     {/* მარჯვენა სოციალური ზოლი */}
+<div className="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center">
+    
+    {/* აქ დავამატე mt-24, რომ ხაზი ზემოდან ჩამოიწიოს */}
+    <div className="w-[1px] h-48 bg-gradient-to-b from-transparent via-[#b89e5d]/50 to-[#b89e5d] mt-24"></div>
+    
+    <div className="py-6">
+      <span 
+        className="text-[11px] font-black tracking-[0.6em] text-white/70 uppercase whitespace-nowrap drop-shadow-lg"
+        style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+      >
+        © HORECA DISTRIBUTION
+      </span>
+    </div>
 
-          <div className="flex flex-col gap-8 items-center text-white/50 mt-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" 
-               className="hover:text-[#b89e5d] hover:scale-125 transition-all duration-300">
-              <Facebook size={20} strokeWidth={2} />
-            </a>
-            <a href="https://www.instagram.com/horecadistribution_/" target="_blank" rel="noopener noreferrer" 
-               className="hover:text-[#b89e5d] hover:scale-125 transition-all duration-300">
-              <Instagram size={20} strokeWidth={2} />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" 
-               className="hover:text-[#b89e5d] hover:scale-125 transition-all duration-300">
-              <Linkedin size={20} strokeWidth={2} />
-            </a>
-          </div>
-        </div>
+    <div className="flex flex-col gap-8 items-center text-white/50 mt-4">
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" 
+         className="hover:text-[#b89e5d] hover:scale-125 transition-all duration-300">
+        <Facebook size={20} strokeWidth={2} />
+      </a>
+      <a href="https://www.instagram.com/horecadistribution_/" target="_blank" rel="noopener noreferrer" 
+         className="hover:text-[#b89e5d] hover:scale-125 transition-all duration-300">
+        <Instagram size={20} strokeWidth={2} />
+      </a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" 
+         className="hover:text-[#b89e5d] hover:scale-125 transition-all duration-300">
+        <Linkedin size={20} strokeWidth={2} />
+      </a>
+    </div>
+</div>
 
         {/* Scroll Indicator */}
         <motion.div 
