@@ -53,7 +53,7 @@ export default function StatsSection() {
 
       <div className="max-w-5xl mx-auto flex flex-col relative z-10 w-full">
         
-        {/* Header Block with adjusted mobile line-height */}
+        {/* Header Block with adjusted spacing */}
         <div className="flex flex-col items-end mb-16 w-full">
           <div className="relative w-72 h-32 md:w-[400px] md:h-36 mb-6">
             <Image 
@@ -66,8 +66,16 @@ export default function StatsSection() {
           </div>
 
           <div className="w-full text-right max-w-3xl ml-auto">
-            {/* title-caps კლასი და line-height (leading) შესწორება */}
-            <h2 className="title-caps text-white text-lg md:text-xl md:leading-[1.6] leading-[1.9] opacity-90 italic">
+            {/* აქ მოვხსენით font-bold და დავამატეთ დაშორებები */}
+            <h2 
+              className="title-caps text-white text-lg md:text-xl opacity-90 italic"
+              style={{ 
+                fontWeight: '400',
+                letterSpacing: '0.08em',
+                lineHeight: '2.1',
+                WebkitTextStroke: '0px' // იძულებითი მოხსნა
+              }}
+            >
               {t.description}
             </h2>
           </div>
