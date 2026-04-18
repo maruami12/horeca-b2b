@@ -33,7 +33,7 @@ export type ProductListItem = {
   description?: string
 }
 
-export const allProductsQuery = /* groq */ `*[_type == "product"]|order(_createdAt desc){
+export const allProductsQuery = /* groq */ `*[_type == "product"]|order(category == "ხილი" desc, _createdAt desc){
   _id,
   name,
   image,
