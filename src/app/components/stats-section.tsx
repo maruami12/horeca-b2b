@@ -19,7 +19,7 @@ const content: any = {
       { label: "Customers", value: "200+" },
       { label: "Delivery", value: "24/7" },
     ],
-    description: "To ensure the smooth operation of your business, we provide stable supply of quality products and prompt service,"
+    description: "To ensure the smooth operation of your business, we provide stable supply of quality products and prompt service"
   },
   RU: {
     stats: [
@@ -27,7 +27,7 @@ const content: any = {
       { label: "Клиентов", value: "200+" },
       { label: "Доставка", value: "24/7" },
     ],
-    description: "Для обеспечения бесперебойной работы вашего бизнеса мы обеспечиваем стабильные поставки качественной продукции и оперативный сервис,"
+    description: "Для обеспечения бесперебойной работы вашего бизнеса мы обеспечиваем стабильные поставки качественной продукции и оперативный сервис"
   }
 }
 
@@ -38,7 +38,6 @@ export default function StatsSection() {
   return (
     <section className="relative bg-[#0a0a0a] py-24 px-4 overflow-hidden min-h-[650px] flex flex-col justify-center">
       
-      {/* Background Image & Overlays */}
       <div className="absolute inset-0 z-0">
         <Image 
           src="/stats-bg.png" 
@@ -53,8 +52,8 @@ export default function StatsSection() {
 
       <div className="max-w-5xl mx-auto flex flex-col relative z-10 w-full">
         
-        {/* Header Block - აქ არის ცვლილებები */}
         <div className="flex flex-col items-end mb-16 w-full">
+          {/* ლოგო რჩება უცვლელად მარჯვნივ */}
           <div className="relative w-72 h-32 md:w-[400px] md:h-36 mb-6">
             <Image 
               src="/logo-white.png" 
@@ -65,13 +64,14 @@ export default function StatsSection() {
             />
           </div>
 
-          <div className="w-full text-right max-w-3xl ml-auto">
-            {/* ტექსტი გავხადეთ უფრო სქელი (0.8px stroke) და დიდი (text-3xl) */}
+          {/* მხოლოდ ტექსტის ბლოკი: გასწორებულია მარცხნივ (text-left) */}
+          <div className="w-full text-left max-w-3xl ml-auto">
             <h2 
-              className="title-caps text-white text-2xl md:text-3xl opacity-100 leading-[1.8] md:leading-[1.6]"
+              className="title-caps text-white text-2xl md:text-3xl opacity-100"
               style={{ 
-                WebkitTextStroke: '0.8px white', // გასქელება
-                letterSpacing: '0.02em',        // ოდნავ შევავიწროვეთ ასოები, რომ სურათს დაემსგავსოს
+                WebkitTextStroke: '0.8px white',
+                letterSpacing: '0.02em',
+                lineHeight: '2.5', // მაქსიმალური დაშორება ხაზებს შორის
                 fontWeight: 'bold'
               }}
             >
@@ -80,7 +80,6 @@ export default function StatsSection() {
           </div>
         </div>
 
-        {/* Stats Card */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,11 +100,7 @@ export default function StatsSection() {
               
               <p 
                 className="title-caps text-white text-[12px] md:text-[14px] px-2"
-                style={{ 
-                  lineHeight: '1.4', 
-                  display: 'inline-block',
-                  WebkitTextStroke: '0.3px white' // პატარა წარწერებსაც ოდნავ სიმკვრივე
-                }}
+                style={{ lineHeight: '1.4', display: 'inline-block' }}
               >
                 {stat.label}
               </p>
