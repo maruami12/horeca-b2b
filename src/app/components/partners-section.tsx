@@ -4,6 +4,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination, FreeMode } from 'swiper/modules'
+import { useLanguage } from "../LanguageContext" // დავამატე ენის ჰუკი
 
 // Swiper-ის სტილები
 import 'swiper/css'
@@ -12,6 +13,25 @@ import 'swiper/css/pagination'
 import 'swiper/css/free-mode'
 
 export default function PartnersSection() {
+  const { lang } = useLanguage();
+
+  const content: any = {
+    KA: {
+      subtitle: "პარტნიორები",
+      footerText: "ჩვენი პარტნიორები იზიარებენ ერთ პრინციპს, სტაბილურ ხარისხს. ეს არის ჩვენი საერთო შედეგის საფუძველი."
+    },
+    EN: {
+      subtitle: "PARTNERS",
+      footerText: "Our partners share one principle: stable quality. This is the foundation of our shared results."
+    },
+    RU: {
+      subtitle: "ПАРТНЕРЫ",
+      footerText: "Наши партнеры разделяют один принцип — стабильное качество. Это основа нашего общего результата."
+    }
+  };
+
+  const t = content[lang];
+
   const partners = [
     { logo: "/agrohub-logo.png", img: "/agrohub.jpg", name: "Agrohub" },
     { logo: "/ska-logo.png", img: "/ska.jpg", name: "Ska" },
@@ -28,17 +48,21 @@ export default function PartnersSection() {
     <section id="partners" className="relative bg-[#C8A75E] py-16 md:py-24 overflow-hidden">
       <div className="max-w-[1750px] mx-auto px-4 md:px-10 relative z-10">
         
-        {/* 1. ზედა ნაწილი */}
-        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-5 mb-10 md:mb-14 ml-0 md:ml-4 text-center md:text-left">
-          <div className="w-12 h-12 md:w-16 md:h-16 relative brightness-0 opacity-60">
-            <Image src="/symbol.png" alt="Icon" fill className="object-contain" />
-          </div>
-          <div className="border-[1.5px] border-white/50 rounded-2xl px-6 md:px-10 py-2 md:py-3 bg-white/10 backdrop-blur-sm">
-            <span className="text-white text-base md:text-lg tracking-[0.2em] uppercase font-semibold">
-              პარტნიორები
-            </span>
-          </div>
-        </div>
+ {/* 1. ზედა ნაწილი - დიდი ზომის და გასწორებული ფონტით */}
+<div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 mb-10 md:mb-14 ml-0 md:ml-4 text-center md:text-left">
+  
+  {/* ლოგო - w-20 h-20 სიმეტრიული -translate-y-[4px]-ით */}
+  <div className="w-16 h-16 md:w-20 md:h-20 relative brightness-0 opacity-60 transform -translate-y-[4px] flex-shrink-0">
+    <Image src="/symbol.png" alt="Icon" fill className="object-contain" />
+  </div>
+
+  <div className="border-[2px] border-white/50 rounded-[24px] px-8 md:px-14 py-4 md:py-5 bg-white/10 backdrop-blur-sm">
+    {/* აქ გამოვიყენე შენი იდეა: title-caps კლასი, რომელიც ყველაფერს ასწორებს */}
+    <span className="title-caps text-2xl md:text-3xl text-white">
+      {t.subtitle}
+    </span>
+  </div>
+</div>
 
         {/* 2. ლოგოების მოძრავი ხაზი */}
         <div className="w-full bg-black rounded-[30px] md:rounded-[50px] py-1 md:py-2 mb-12 md:mb-20 overflow-hidden relative shadow-2xl border border-white/10">
@@ -63,7 +87,7 @@ export default function PartnersSection() {
                     isMaron 
                       ? "h-14 w-14 mx-[-10px] md:h-24 md:w-24 md:mx-[-20px]" 
                       : isSka 
-                        ? "h-14 w-14 mx-[8px] md:h-24 md:w-24 md:mx-6" // მობილურზე დავამატეთ დაშორება (mx-[8px])
+                        ? "h-14 w-14 mx-[8px] md:h-24 md:w-24 md:mx-6"
                         : isGourmet
                           ? "h-14 w-32 mx-[-22px] md:h-24 md:w-48 md:mx-0" 
                           : "h-14 w-32 mx-[-8px] md:h-24 md:w-48 md:mx-0"
@@ -118,11 +142,10 @@ export default function PartnersSection() {
           </Swiper>
         </div>
 
-        {/* 4. ქვედა ტექსტი */}
+        {/* 4. ქვედა ტექსტი - ერთხაზოვანი ფონტით */}
         <div className="max-w-7xl mx-auto border-t border-white/20 pt-10 md:pt-16 px-6 md:px-12">
-          <p className="text-white/80 text-xl md:text-3xl lg:text-[32px] font-light leading-[1.6] tracking-[0.08em] text-left max-w-none uppercase">
-            ჩვენი პარტნიორები იზიარებენ ერთ პრინციპს, სტაბილურ ხარისხს. <br className="hidden md:block" />
-            ეს არის ჩვენი საერთო შედეგის საფუძველი.
+          <p className="text-white/80 text-xl md:text-3xl lg:text-[32px] font-medium leading-[1.6] tracking-tighter text-left max-w-none uppercase font-sans">
+            {t.footerText}
           </p>
         </div>
       </div>

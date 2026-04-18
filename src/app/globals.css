@@ -1,8 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-@import "tailwindcss";
-
+/* 1. ფონტების იმპორტი - ორივე წონაზე ვტოვებთ BPG Nino-ს */
 @font-face {
   font-family: 'BPGNino';
   src: url('/fonts/bpg_nino_mtavruli_normal.otf') format('opentype');
@@ -13,17 +12,18 @@
 
 @font-face {
   font-family: 'BPGNino';
-  src: url('/fonts/NotoSansGeorgian-Bold.ttf') format('truetype');
+  src: url('/fonts/bpg_nino_mtavruli_normal.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
+/* ზოგადი გასწორება - ყველაფერმა BPG Nino გამოიყენოს */
 *, *::before, *::after {
   font-family: 'BPGNino', sans-serif !important;
 }
 
-h1, h2, h3, h4, h5, h6, p, span, a, button, div, nav, li, ul {
+h1, h2, h3, h4, h5, h6, p, span, a, button, div, nav, li, ul, input, textarea {
   font-family: 'BPGNino', sans-serif !important;
 }
 
@@ -61,9 +61,52 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, div, nav, li, ul {
   animation: scroll 40s linear infinite;
 }
 
-.text-gold { color: var(--color-tan); }
-.bg-gold { background-color: var(--color-tan); }
+.text-gold { color: #b8a26a; }
+.bg-gold { background-color: #b8a26a; }
 
 html {
   scroll-behavior: smooth;
+}
+
+@layer components {
+  /* მთავრული სათაურების კლასი - გაუმჯობესებული */
+  .title-caps {
+    font-family: 'BPGNino', sans-serif !important;
+    text-transform: uppercase !important;
+    font-weight: 400; 
+    /* ხელოვნური Bold ეფექტი, რომელიც ფონტს არ ცვლის */
+    -webkit-text-stroke: 0.4px currentColor;
+    letter-spacing: 0.06em; 
+    line-height: normal !important;
+    display: block;
+  }
+
+  /* ძებნის ველის აკრეფილი ტექსტი */
+  .search-input-caps {
+    font-family: 'BPGNino', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
+    line-height: normal !important;
+  }
+
+  .search-input-caps::placeholder {
+    font-family: 'BPGNino', sans-serif !important;
+    text-transform: uppercase !important;
+    opacity: 0.6;
+  }
+
+  /* Placeholder გასწორება */
+  .search-input-caps::-webkit-input-placeholder {
+    font-family: 'BPGNino', sans-serif !important;
+    text-transform: uppercase !important;
+  }
+}
+
+/* სქროლის მოცილება */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
-import { useLanguage } from '../LanguageContext';// დარწმუნდი რომ წერტილები სწორია (../ ნიშნავს ერთით ზემოთ გასვლას)
+import { useLanguage } from '../LanguageContext';
 
 
 
@@ -286,52 +286,56 @@ export default function ProductsSection() {
   const visibleProducts = showAll ? filteredProducts : filteredProducts.slice(0, 16);
 
   return (
-    <section id="products" className="relative py-16 min-h-screen font-sans overflow-hidden">
+    <section id="products" className="relative py-24 min-h-screen overflow-hidden bg-[#0a0a0a]">
       
+      {/* ფონი */}
       <div className="absolute inset-0 z-0">
         <Image 
           src="/bg.png" 
           alt="Background" 
           fill 
           priority 
-          quality={75}
-          sizes="100vw"
-          className="object-cover opacity-30 brightness-[1.1]"
+          className="object-cover opacity-20"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
       </div>
 
-      <div className="max-w-[1850px] mx-auto px-4 md:px-10 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6">
-          <div className="flex items-center gap-6">
-            <div className="relative w-10 h-10 md:w-12 md:h-12 shrink-0">
+      <div className="max-w-[1850px] mx-auto px-6 md:px-16 relative z-10">
+        
+        {/* სათაური და ძებნა */}
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-16 gap-10">
+          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+            <div className="w-16 h-16 md:w-20 md:h-20 relative transform -translate-y-[4px] flex-shrink-0">
               <Image src="/symbol.png" alt="Symbol" fill className="object-contain" />
             </div>
-            <div className="px-6 md:px-10 py-2 md:py-3 border-[1.5px] border-white/50 rounded-2xl bg-white/10 backdrop-blur-sm">
-              <h2 className="text-white text-base md:text-lg tracking-[0.2em] uppercase font-semibold">
+            <div className="border-[2px] border-white/50 rounded-[24px] px-8 md:px-14 py-4 md:py-5 bg-white/10 backdrop-blur-sm">
+              <h2 className="title-caps text-2xl md:text-3xl text-white">
                 {t.title}
               </h2>
             </div>
           </div>
           
-          <div className="relative w-full lg:w-[400px]">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+          <div className="relative w-full lg:w-[450px]">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" size={22} />
             <input 
               type="text"
               placeholder={t.searchPlaceholder}
-              className="w-full pl-12 pr-6 py-4 bg-white/95 rounded-2xl outline-none text-black font-semibold text-sm focus:ring-2 focus:ring-[#b89e5d]"
+              className="search-input-caps w-full pl-14 pr-6 py-5 bg-white/95 rounded-[20px] outline-none text-black font-semibold text-base focus:ring-2 focus:ring-[#b89e5d] transition-all"
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-10 overflow-x-auto pb-2 no-scrollbar">
+        {/* კატეგორიები */}
+        <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-12 overflow-x-auto pb-4 no-scrollbar">
           {categories.map((cat: string, index: number) => (
             <button
               key={index}
               onClick={() => { setActiveCategoryIndex(index); setShowAll(false); }}
-              className={`px-6 py-2.5 rounded-xl font-bold uppercase text-[9px] tracking-widest transition-all ${
-                activeCategoryIndex === index ? 'bg-[#b89e5d] text-white shadow-lg' : 'bg-white/10 text-white hover:bg-white/20'
+              className={`px-8 py-3 rounded-xl title-caps text-[11px] transition-all duration-300 ${
+                activeCategoryIndex === index 
+                  ? 'bg-[#b89e5d] text-white shadow-lg scale-105' 
+                  : 'bg-white/5 text-white/70 hover:bg-white/10 border border-white/5'
               }`}
             >
               {cat}
@@ -339,44 +343,42 @@ export default function ProductsSection() {
           ))}
         </div>
 
-        <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-4">
+        {/* პროდუქტების ბადე */}
+        <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-5">
           <AnimatePresence mode='popLayout'>
             {visibleProducts.map((product: any, idx: number) => (
               <motion.div
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 key={product.id}
-                className="group bg-white/95 rounded-[24px] overflow-hidden shadow-xl border border-white/20 flex flex-col h-full"
+                className="group bg-white/95 rounded-[28px] overflow-hidden shadow-2xl border border-white/20 flex flex-col h-full hover:translate-y-[-5px] transition-transform duration-300"
               >
-                <div className="relative h-44 w-full overflow-hidden bg-gray-100">
+                <div className="relative h-48 w-full overflow-hidden bg-gray-100">
                   <Image 
                     src={product.img} 
                     alt={product.name} 
                     fill 
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 15vw"
-                    priority={idx < 8}
-                    loading={idx < 8 ? "eager" : "lazy"}
                     className="object-cover transition-transform duration-700 group-hover:scale-110" 
                   />
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-black/70 px-3 py-1 rounded-full text-[8px] font-black text-white border border-white/10">
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[9px] title-caps text-white border border-white/10">
                       {product.category}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-5 flex flex-col flex-grow">
-                  <h3 className="text-[13px] font-black text-black mb-auto leading-tight min-h-[32px]">
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="title-caps text-[13px] md:text-[14px] text-black mb-auto leading-tight min-h-[42px]">
                     {product.name}
                   </h3>
-                  <div className="mt-5 flex justify-between items-center border-t border-gray-100 pt-4">
+                  <div className="mt-6 flex justify-between items-center border-t border-gray-100 pt-5">
                     <div>
-                      <p className="text-gray-400 text-[8px] uppercase font-black">{t.priceLabel}</p>
-                      <p className="text-xl font-black text-black">{product.price}</p>
+                      <p className="title-caps text-gray-400 text-[9px] tracking-wider">{t.priceLabel}</p>
+                      <p className="text-2xl font-black text-black">{product.price}</p>
                     </div>
-                    <button className="bg-black text-white w-9 h-9 rounded-xl hover:bg-[#b89e5d] transition-all">+</button>
+                    <button className="bg-black text-white w-10 h-10 rounded-2xl hover:bg-[#b89e5d] hover:scale-110 transition-all flex items-center justify-center text-xl shadow-lg">+</button>
                   </div>
                 </div>
               </motion.div>
@@ -384,11 +386,12 @@ export default function ProductsSection() {
           </AnimatePresence>
         </motion.div>
 
+        {/* ნახე მეტი ღილაკი */}
         {filteredProducts.length > 16 && (
-          <div className="mt-16 text-center">
+          <div className="mt-20 text-center">
             <button 
               onClick={() => setShowAll(!showAll)}
-              className="px-12 py-5 rounded-2xl bg-white text-black font-black uppercase text-[10px] hover:bg-[#b89e5d] hover:text-white transition-all shadow-2xl"
+              className="px-16 py-5 rounded-2xl bg-white text-black title-caps text-[13px] hover:bg-[#b89e5d] hover:text-white transition-all shadow-xl"
             >
               {showAll ? t.lessBtn : `${t.moreBtn} (${filteredProducts.length})`}
             </button>

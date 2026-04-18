@@ -70,39 +70,40 @@ export default function Navbar() {
       <nav 
         className={`fixed top-0 left-0 w-full z-[60] px-6 md:px-12 lg:px-20 flex items-center justify-between transition-all duration-500 text-white outline-none ${
           isScrolled 
-            ? "bg-black/10 backdrop-blur-md py-2 shadow-md translate-y-0" 
-            : "bg-transparent py-6 lg:py-8" // აქ შემცირდა დაშორება ზედა კიდიდან
+            ? "bg-black/10 backdrop-blur-md py-2 shadow-md" 
+            : "bg-transparent py-6 lg:py-8"
         }`}
       >
-        {/* MOBILE & TABLET BURGER (Left) */}
-        <button 
-          className="lg:hidden p-2 text-white active:scale-90 transition-all focus:outline-none outline-none" 
-          onClick={() => setIsOpen(true)}
-        >
-          <Menu size={isScrolled ? 28 : 44} />
-        </button>
-
-        {/* DESKTOP ONLY SECTION (Links + Cart) */}
-        <div className="hidden lg:flex flex-1 gap-4 justify-start items-center font-medium text-[20px] tracking-[0.1em] uppercase whitespace-nowrap pl-16">
-          <button className="mr-6 p-2 text-white hover:text-[#C8A75E] active:scale-90 transition-all focus:outline-none outline-none">
-            <ShoppingBag size={isScrolled ? 26 : 34} />
+        {/* LEFT SECTION: Burger (Mobile) / Cart + Links (Desktop) */}
+        <div className="flex flex-1 justify-start items-center">
+          <button 
+            className="lg:hidden p-2 -ml-2 text-white active:scale-90 transition-all focus:outline-none" 
+            onClick={() => setIsOpen(true)}
+          >
+            <Menu size={isScrolled ? 28 : 44} />
           </button>
 
-          <Link href="#products" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
-            <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
-              {content[safeLang].products}
-            </span>
-          </Link>
-          <Link href="#partners" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
-            <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
-              {content[safeLang].partners}
-            </span>
-          </Link>
+          <div className="hidden lg:flex items-center gap-4 font-medium text-[20px] tracking-[0.1em] uppercase whitespace-nowrap">
+            <button className="p-2 -ml-2 text-white hover:text-[#C8A75E] active:scale-90 transition-all focus:outline-none">
+              <ShoppingBag size={isScrolled ? 26 : 34} />
+            </button>
+
+            <Link href="#products" className="group relative py-3 px-8 transition-all border border-transparent hover:border-white rounded-[15px]">
+              <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
+                {content[safeLang].products}
+              </span>
+            </Link>
+            <Link href="#partners" className="group relative py-3 px-8 transition-all border border-transparent hover:border-white rounded-[15px]">
+              <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
+                {content[safeLang].partners}
+              </span>
+            </Link>
+          </div>
         </div>
         
         {/* LOGO SECTION (Center) */}
-        <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:left-auto lg:translate-x-0 lg:flex-none transition-all duration-500">
-          <Link href="/" className="block focus:outline-none outline-none">
+        <div className="flex-none transition-all duration-500">
+          <Link href="/" className="block focus:outline-none">
             <Image 
               src="/logo-white.png" 
               alt="HORECA Distribution" 
@@ -118,29 +119,29 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* RIGHT SECTION: Desktop Links + Language | Mobile/Tablet Cart */}
+        {/* RIGHT SECTION: Links + Language (Desktop) / Cart (Mobile) */}
         <div className="flex flex-1 items-center justify-end">
           <div className="hidden lg:flex gap-4 items-center font-medium text-[20px] tracking-[0.1em] uppercase whitespace-nowrap mr-6">
-            <Link href="#about" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
+            <Link href="#about" className="group relative py-3 px-8 transition-all border border-transparent hover:border-white rounded-[15px]">
               <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
                 {content[safeLang].about}
               </span>
             </Link>
-            <Link href="#contact" className="group relative py-3 px-8 transition-all focus:outline-none outline-none border border-transparent hover:border-white rounded-[15px]">
+            <Link href="#contact" className="group relative py-3 px-8 transition-all border border-transparent hover:border-white rounded-[15px]">
               <span className="relative z-10 group-hover:text-[#C8A75E] transition-colors duration-300">
                 {content[safeLang].contact}
               </span>
             </Link>
           </div>
 
-          <button className="lg:hidden p-2 text-white active:scale-90 transition-all focus:outline-none outline-none">
+          <button className="lg:hidden p-2 -mr-2 text-white active:scale-90 transition-all focus:outline-none">
             <ShoppingBag size={isScrolled ? 28 : 42} /> 
           </button>
           
-          <div className="hidden lg:block relative ml-6 pl-8 border-l border-white/10" ref={langRef}>
+          <div className="hidden lg:block relative -mr-2" ref={langRef}>
             <button 
               onClick={() => setIsLangOpen(!isLangOpen)}
-              className={`group flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all focus:outline-none outline-none ${isScrolled ? "px-4 py-2" : "px-6 py-3"}`}
+              className={`group flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all focus:outline-none ${isScrolled ? "px-4 py-2" : "px-6 py-3"}`}
             >
               <span className={`font-black tracking-widest transition-all ${isScrolled ? "text-[11px]" : "text-[13px]"}`}>
                 {currentLang}
@@ -163,7 +164,7 @@ export default function Navbar() {
                         setCurrentLang(l.code as any);
                         setIsLangOpen(false);
                       }}
-                      className="w-full flex items-center justify-between px-6 py-4 text-[11px] font-bold tracking-widest transition-all duration-300 focus:outline-none outline-none text-white/40 hover:text-white hover:bg-white/10"
+                      className="w-full flex items-center justify-between px-6 py-4 text-[11px] font-bold tracking-widest transition-all duration-300 focus:outline-none text-white/40 hover:text-white hover:bg-white/10"
                     >
                       {l.label}
                       {currentLang === l.code && <div className="w-1.5 h-1.5 rounded-full bg-[#C8A75E]" />}
@@ -197,7 +198,7 @@ export default function Navbar() {
             >
               <div className="flex justify-between items-center mb-12">
                 <Image src="/logo-white.png" alt="Logo" width={120} height={50} className="object-contain" />
-                <button onClick={() => setIsOpen(false)} className="text-white/40 hover:text-white transition-colors focus:outline-none outline-none">
+                <button onClick={() => setIsOpen(false)} className="text-white/40 hover:text-white transition-colors focus:outline-none">
                   <X size={28} />
                 </button>
               </div>
@@ -213,7 +214,7 @@ export default function Navbar() {
                     <Link 
                       href={link.href} 
                       onClick={() => setIsOpen(false)} 
-                      className="text-white text-base tracking-[0.1em] uppercase font-medium hover:text-[#C8A75E] transition-all flex items-center gap-4 focus:outline-none outline-none"
+                      className="text-white text-base tracking-[0.1em] uppercase font-medium hover:text-[#C8A75E] transition-all flex items-center gap-4 focus:outline-none"
                     >
                       <link.icon size={20} className="text-[#C8A75E]/80" />
                       {link.name}
@@ -232,7 +233,7 @@ export default function Navbar() {
                         setCurrentLang(l.code as any);
                         setIsOpen(false);
                       }}
-                      className={`text-[10px] font-black tracking-widest py-2 px-4 rounded-lg border transition-all duration-300 focus:outline-none outline-none
+                      className={`text-[10px] font-black tracking-widest py-2 px-4 rounded-lg border transition-all duration-300 focus:outline-none
                         ${currentLang === l.code 
                           ? 'border-[#C8A75E] text-[#C8A75E] bg-[#C8A75E]/10' 
                           : 'border-white/10 text-white/40'}`}

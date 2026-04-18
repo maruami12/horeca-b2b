@@ -19,18 +19,18 @@ export default function Home() {
       <section className="relative h-screen w-full flex items-center justify-center">
         <div className="absolute inset-0 z-0">
 
-          {/* Desktop ფონი */}
+          {/* Desktop ფონი - შეიცვალა desktop.png-ზე */}
           <Image
-            src="/hero-bg.png" 
-            alt="Hero Background"
+            src="/desktop.png" 
+            alt="Hero Background Desktop"
             fill
             className="object-cover brightness-[1.0] contrast-[0.95] hidden md:block"
             priority
           />
 
-          {/* მობილური ფონი */}
+          {/* მობილური ფონი - შეიცვალა mobile.png-ზე */}
           <Image
-            src="/mobilephoto.jpg" 
+            src="/mobile.png" 
             alt="Hero Background Mobile"
             fill
             className="object-cover brightness-[1.0] contrast-[0.95] block md:hidden"
@@ -46,10 +46,8 @@ export default function Home() {
 
       {/* მარჯვენა სოციალური ზოლი */}
       <div className="absolute right-8 md:right-16 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center">
-          {/* ზედა ხაზი - დავაგრძელეთ, რომ ტექსტი ქვემოთ ჩამოვიდეს */}
           <div className="w-[1px] h-48 bg-gradient-to-b from-transparent via-[#b89e5d]/50 to-[#b89e5d]"></div>
           
-          {/* ტექსტი - შემცირებული padding-ით (py-6), რომ უფრო ახლოს იყოს ხატულებთან */}
           <div className="py-6">
             <span 
               className="text-[11px] font-black tracking-[0.6em] text-white/70 uppercase whitespace-nowrap drop-shadow-lg"
@@ -59,7 +57,6 @@ export default function Home() {
             </span>
           </div>
 
-          {/* სოციალური ხატულები - მკაფიო და ეფექტური */}
           <div className="flex flex-col gap-8 items-center text-white/50 mt-4">
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" 
                className="hover:text-[#b89e5d] hover:scale-125 transition-all duration-300">
@@ -76,7 +73,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll Indicator - ქვედა მოძრავი ხაზი */}
+        {/* Scroll Indicator */}
         <motion.div 
           animate={{ y: [0, 15, 0], opacity: [0.4, 1, 0.4] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
