@@ -11,6 +11,7 @@ const content: any = {
       { label: "მომხმარებელი", value: "200+" },
       { label: "მიწოდება", value: "24/7" },
     ],
+    // ტექსტი სრულად, როგორც სურათზეა
     description: "თქვენი საქმიანობის შეუფერხებელი მუშაობისთვის ვუზრუნველყოფთ ხარისხიანი პროდუქტების სტაბილურ მიწოდებას და ოპერატიულ სერვისს,"
   },
   EN: {
@@ -53,7 +54,7 @@ export default function StatsSection() {
 
       <div className="max-w-5xl mx-auto flex flex-col relative z-10 w-full">
         
-        {/* Header Block with adjusted spacing */}
+        {/* Header Block with adjusted spacing and design for mobile */}
         <div className="flex flex-col items-end mb-16 w-full">
           <div className="relative w-72 h-32 md:w-[400px] md:h-36 mb-6">
             <Image 
@@ -66,14 +67,12 @@ export default function StatsSection() {
           </div>
 
           <div className="w-full text-right max-w-3xl ml-auto">
-            {/* აქ მოვხსენით font-bold და დავამატეთ დაშორებები */}
+            {/* title-caps კლასი, WebkitTextStroke, letterSpacing და გაზრდილი line-height/size */}
             <h2 
-              className="title-caps text-white text-lg md:text-xl opacity-90 italic"
+              className="title-caps text-white text-2xl md:text-3xl opacity-90 leading-[1.9] md:leading-[1.7]"
               style={{ 
-                fontWeight: '400',
-                letterSpacing: '0.08em',
-                lineHeight: '2.1',
-                WebkitTextStroke: '0px' // იძულებითი მოხსნა
+                WebkitTextStroke: '0.6px white',
+                letterSpacing: '0.04em'
               }}
             >
               {t.description}
