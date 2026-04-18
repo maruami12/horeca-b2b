@@ -20,7 +20,7 @@ export const sanityClient = createClient({
 
 const builder = imageUrlBuilder(sanityClient)
 
-export function urlForImage(source: unknown) {
+export function urlForImage(source: any) {
   return builder.image(source)
 }
 
@@ -33,7 +33,7 @@ export type ProductListItem = {
   description?: string
 }
 
-export const allProductsQuery = /* groq */ `*[_type == "product"]|order(category == "ხილი" desc, _createdAt desc){
+export const allProductsQuery = /* groq */ `*[_type == "product"] | order(select(category == "ხილი" => 0, 1), _createdAt desc){
   _id,
   name,
   image,
