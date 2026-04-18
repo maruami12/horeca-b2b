@@ -11,8 +11,7 @@ const content: any = {
       { label: "მომხმარებელი", value: "200+" },
       { label: "მიწოდება", value: "24/7" },
     ],
-    // ტექსტი სრულად, როგორც სურათზეა
-    description: "თქვენი საქმიანობის შეუფერხებელი მუშაობისთვის ვუზრუნველყოფთ ხარისხიანი პროდუქტების სტაბილურ მიწოდებას და ოპერატიულ სერვისს,"
+    description: "თქვენი საქმიანობის შეუფერხებელი მუშაობისთვის ვუზრუნველყოფთ ხარისხიანი პროდუქტების სტაბილურ მიწოდებას და ოპერატიულ სერვისს"
   },
   EN: {
     stats: [
@@ -54,7 +53,7 @@ export default function StatsSection() {
 
       <div className="max-w-5xl mx-auto flex flex-col relative z-10 w-full">
         
-        {/* Header Block with adjusted spacing and design for mobile */}
+        {/* Header Block - აქ არის ცვლილებები */}
         <div className="flex flex-col items-end mb-16 w-full">
           <div className="relative w-72 h-32 md:w-[400px] md:h-36 mb-6">
             <Image 
@@ -67,12 +66,13 @@ export default function StatsSection() {
           </div>
 
           <div className="w-full text-right max-w-3xl ml-auto">
-            {/* title-caps კლასი, WebkitTextStroke, letterSpacing და გაზრდილი line-height/size */}
+            {/* ტექსტი გავხადეთ უფრო სქელი (0.8px stroke) და დიდი (text-3xl) */}
             <h2 
-              className="title-caps text-white text-2xl md:text-3xl opacity-90 leading-[1.9] md:leading-[1.7]"
+              className="title-caps text-white text-2xl md:text-3xl opacity-100 leading-[1.8] md:leading-[1.6]"
               style={{ 
-                WebkitTextStroke: '0.6px white',
-                letterSpacing: '0.04em'
+                WebkitTextStroke: '0.8px white', // გასქელება
+                letterSpacing: '0.02em',        // ოდნავ შევავიწროვეთ ასოები, რომ სურათს დაემსგავსოს
+                fontWeight: 'bold'
               }}
             >
               {t.description}
@@ -103,7 +103,8 @@ export default function StatsSection() {
                 className="title-caps text-white text-[12px] md:text-[14px] px-2"
                 style={{ 
                   lineHeight: '1.4', 
-                  display: 'inline-block' 
+                  display: 'inline-block',
+                  WebkitTextStroke: '0.3px white' // პატარა წარწერებსაც ოდნავ სიმკვრივე
                 }}
               >
                 {stat.label}
