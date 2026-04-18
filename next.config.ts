@@ -38,6 +38,11 @@ const nextConfig = {
         hostname: 'images.google.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        pathname: '/**',
+      },
     ],
   },
 };
