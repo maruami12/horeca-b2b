@@ -38,6 +38,7 @@ export default function StatsSection() {
   return (
     <section className="relative bg-[#0a0a0a] py-24 px-4 overflow-hidden min-h-[650px] flex flex-col justify-center">
       
+      {/* Background Image & Overlays */}
       <div className="absolute inset-0 z-0">
         <Image 
           src="/stats-bg.png" 
@@ -52,8 +53,9 @@ export default function StatsSection() {
 
       <div className="max-w-5xl mx-auto flex flex-col relative z-10 w-full">
         
+        {/* Header Block with adjusted mobile line-height */}
         <div className="flex flex-col items-end mb-16 w-full">
-          <div className="relative w-72 h-32 md:w-[400px] md:h-36 mb-4">
+          <div className="relative w-72 h-32 md:w-[400px] md:h-36 mb-6">
             <Image 
               src="/logo-white.png" 
               alt="Horeca Distribution Logo" 
@@ -63,13 +65,15 @@ export default function StatsSection() {
             />
           </div>
 
-          <div className="w-full text-right">
-            <h2 className="text-white text-xl md:text-2xl font-medium leading-[1.6] tracking-wider opacity-90 uppercase italic">
+          <div className="w-full text-right max-w-3xl ml-auto">
+            {/* title-caps კლასი და line-height (leading) შესწორება */}
+            <h2 className="title-caps text-white text-lg md:text-xl md:leading-[1.6] leading-[1.9] opacity-90 italic">
               {t.description}
             </h2>
           </div>
         </div>
 
+        {/* Stats Card */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
